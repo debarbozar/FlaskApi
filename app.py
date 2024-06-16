@@ -7,21 +7,26 @@ api = Api(app)
 
 class Users(Resource):
     def get(self):
-        return {'message': 'user 1 '}
+        return {"message": "user 1 "}
 
 
 class User(Resource):
     def post(self):
-        return {'message': 'teste'}
+        return {"message": "teste"}
 
     def get(self):
-        return {'message': 'CPF'}
+        return {"message": "CPF"}
 
 
-api.add_resource(Users, '/users')
-api.add_resource(User, '/user', '/user/<string:cpf>')
+api.add_resource(Users, "/users")
+api.add_resource(User, "/user", "/user/<string:cpf>")
 
 if __name__ == '__main__':
-    app.run(debug=True)
-# Rodar a aplicação utilizando o comando "flask run"
-# localhost: http://127.0.0.1:5000/
+    app.run(debug=True, host="0.0.0.0")
+
+"""
+Impacto:
+    Necessario utilizar o host "0.0.0.0" pois ao chamar a 
+    aplicação no docker não estava pegando o IP do container, e sim somente local
+    Sendo assim só está recebendo conexão em uma interface (lookback).
+"""
