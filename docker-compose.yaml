@@ -1,0 +1,23 @@
+version: '3.10'
+
+services:
+  mongodb:
+    image: mongo:8.0-rc-jammy
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin 
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    restart: always
+
+  api:
+    build:
+     context: .
+    ports:
+      - 5000:5000
+    restart: always
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/app
+
+# Por ser um ambiente de desenvolvimento, não irei me preocupar com o security
