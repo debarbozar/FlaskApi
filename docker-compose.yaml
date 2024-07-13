@@ -5,7 +5,7 @@ services:
     image: mongo:8.0-rc-jammy
     container_name: mongodb
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin 
+      MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
     restart: always
 
