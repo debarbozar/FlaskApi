@@ -5,6 +5,17 @@ from flask_mongoengine import MongoEngine
 
 app = Flask(__name__)
 #  Inicializador api
+
+#  Configuração MongoDB
+app.config['MONGODB_SETTINGS'] = {
+    'db': 'users',
+    'host': 'mongodb',
+    'port': 27017,
+    'username': 'admin',
+    'password': 'admin',
+}
+
+
 api = Api(app)
 #  Inicializador db
 db = MongoEngine(app)
@@ -31,7 +42,8 @@ class UserModel(db.Document):
 
 class Users(Resource):
     def get(self):
-        return {"message": "user 1"}
+        return UserModel.objects()
+        #  return {"message": "user 1"}
 
 
 class User(Resource):
