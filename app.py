@@ -21,16 +21,6 @@ api = Api(app)
 db = MongoEngine(app)
 
 
-#  Configuração MongoDB
-app.config['MONGODB_SETTINGS'] = {
-    'db': 'users',
-    'host': 'mongodb',
-    'port': 27017,
-    'username': 'admin',
-    'password': 'admin',
-}
-
-
 #  Classe que irá se conectar com o Banco MongoDB
 class UserModel(db.Document):
     cpf = db.StringField(required=True, unique=True)  # PK
