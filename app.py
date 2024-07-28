@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restful import Resource, Api
 from flask_mongoengine import MongoEngine
 import os
@@ -30,8 +30,8 @@ class UserModel(db.Document):
 
 class Users(Resource):
     def get(self):
-        return UserModel.objects()
-        #  return {"message": "user 1"}
+        #return jsonify(UserModel.objects())
+        return {"message": "user 1"}
 
 
 class User(Resource):
