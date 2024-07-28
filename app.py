@@ -1,23 +1,21 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from flask_mongoengine import MongoEngine
+import os
 
 
 app = Flask(__name__)
-#  Inicializador api
 
-#  Configuração MongoDB
+
 app.config['MONGODB_SETTINGS'] = {
     'db': 'users',
     'host': 'mongodb',
     'port': 27017,
-    'username': 'admin',
-    'password': 'admin',
+    'username': os.getenv('MONGO_DB_USERNAME'),
+    'password': os.getenv('MONGO_DB_PASSWORD'),
 }
 
-
 api = Api(app)
-#  Inicializador db
 db = MongoEngine(app)
 
 
