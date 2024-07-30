@@ -1,7 +1,7 @@
 APP = restapi
 
 test:
-	@flake . --exclude .venv
+	@flake8 . --exclude .venv
 
 compose:
 	@docker-compose build
