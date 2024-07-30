@@ -3,7 +3,6 @@ from flask_restful import Resource, Api, reqparse
 from flask_mongoengine import MongoEngine
 import os
 
-
 app = Flask(__name__)
 
 
@@ -11,13 +10,13 @@ app.config['MONGODB_SETTINGS'] = {
     'db': 'users',
     'host': 'mongodb',
     'port': 27017,
-    'username': os.getenv('MONGO_DB_USERNAME'),
-    'password': os.getenv('MONGO_DB_PASSWORD'),
+    'username': 'admin',
+    'password': 'admin'
 }
 
 
 _user_parser = reqparse.RequestParser()
-_user_parser.add_argument('name',
+_user_parser.add_argument('first_name',
                           type=str,
                           required=True,
                           help="This field cannot be blank."
@@ -58,14 +57,14 @@ class UserModel(db.Document):
 
 class Users(Resource):
     def get(self):
-        #return jsonify(UserModel.objects())
-        return {"message": "user 1"}
+        return jsonify(UserModel.objects())
+        #  Return {"message": "user 1"}
 
 
 class User(Resource):
     def post(self):
-        data = _user_parser.parser_args()
-        return data
+        data = _user_parser.parse_args()
+        UserModel(**data).save()
 
     def get(self):
         return {"message": "CPF"}
@@ -76,10 +75,3 @@ api.add_resource(User, "/user", "/user/<string:cpf>")
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
-
-"""
-Impacto:
-    Necessario utilizar o host "0.0.0.0" pois ao chamar a
-    aplicação no docker não estava pegando o IP do container, e sim somente local
-    Sendo assim só está recebendo conexão em uma interface (lookback).
-"""
